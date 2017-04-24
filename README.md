@@ -4,6 +4,8 @@
 
 Checks if your .gitlab-ci.yml file is valid.
 
+Thanks to @FGRibreau for the post about [validating .gitlab-ci.yml files](http://blog.fgribreau.com/2017/04/validate-gitlab-gitlab-ciyml-one-liner.html)!
+
 ![](assets/example.gif)
 
 ### Install:
