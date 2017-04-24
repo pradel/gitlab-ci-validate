@@ -4,6 +4,8 @@
 
 Checks if your .gitlab-ci.yml file is valid.
 
+![](assets/example.gif)
+
 ### Install:
 ```
 yarn global add gitlab-ci-validate
