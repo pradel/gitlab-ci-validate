@@ -1,0 +1,27 @@
+{
+  "name": "gitlab-ci-validate",
+  "version": "0.0.0",
+  "main": "src/index.js",
+  "bin": {
+    "gitlab-ci-validate": "./src/bin"
+  },
+  "scripts": {
+    "lint": "eslint src",
+    "test": "npm run lint"
+  },
+  "repository": "https://github.com/pradel/gitlab-ci-validate.git",
+  "author": "Pradel Léo <pradel.leo@gmail.com>",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^3.19.0",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-react": "^6.10.3"
+  },
+  "dependencies": {
+    "chalk": "^1.1.3",
+    "request": "^2.81.0",
+    "request-promise": "^4.2.0"
+  }
+}
