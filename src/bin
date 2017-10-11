@@ -2,9 +2,7 @@
 const chalk = require('chalk');
 const gitlabCiValidate = require('../src/index');
 
-const cmd = process.argv[2];
-
-if (!cmd || cmd === '-h' || cmd === '--help') {
+function showHelp() {
   console.log(`
   Usage
     $ gitlab-ci-validate <file-path>
@@ -12,6 +10,12 @@ if (!cmd || cmd === '-h' || cmd === '--help') {
     $ gitlab-ci-validate -h --help
   `);
   process.exit(0);
+}
+
+const cmd = process.argv[2];
+
+if (!cmd || cmd === '-h' || cmd === '--help') {
+  showHelp();
 }
 
 gitlabCiValidate(cmd).then((data) => {
