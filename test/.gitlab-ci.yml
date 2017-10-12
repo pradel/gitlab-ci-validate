@@ -1,0 +1,12 @@
+image: ruby:2.1
+services:
+  - postgres
+
+job1:
+  stage: build
+  script:
+    - execute-script-for-job1
+  only:
+    - master
+  tags:
+    - docker

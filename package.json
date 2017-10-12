@@ -9,6 +9,12 @@
     "lint": "eslint src",
     "test": "npm run lint"
   },
+  "keywords": [
+    "gitlab",
+    "ci",
+    "gitlab-ci",
+    "validate"
+  ],
   "repository": "https://github.com/pradel/gitlab-ci-validate.git",
   "author": "Pradel Léo <pradel.leo@gmail.com>",
   "license": "MIT",
@@ -21,7 +27,6 @@
   },
   "dependencies": {
     "chalk": "^1.1.3",
-    "request": "^2.81.0",
-    "request-promise": "^4.2.0"
+    "node-fetch": "2.0.0-alpha.9"
   }
 }

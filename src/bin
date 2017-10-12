@@ -15,7 +15,8 @@ function showHelp() {
 
 let cmd = process.argv[2];
 
-if (!cmd && fs.existsSync('.gitlab-ci.yml')) {
+// Default file is .gitlab-ci.yml
+if (!cmd) {
   cmd = '.gitlab-ci.yml';
 }
 
@@ -24,8 +25,7 @@ if (cmd === '-h' || cmd === '--help') {
 }
 
 if (!fs.existsSync(cmd)) {
-  console.log(chalk.red(`
-  ERROR: ${cmd} does not exists!`));
+  console.log(chalk.red(`ERROR: ${cmd} does not exists!`));
   showHelp();
 }
 
@@ -35,7 +35,7 @@ gitlabCiValidate(cmd).then((data) => {
   } else {
     console.log(chalk.red(`${cmd} is invalid:`));
     data.errors.forEach((err) => {
-      console.log(chalk.red(`- ${err}`));
+      console.log(chalk.red(`  - ${err}`));
     });
   }
 }).catch((err) => {
