@@ -1,6 +1,6 @@
 {
   "name": "gitlab-ci-validate",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "main": "src/index.js",
   "bin": {
     "gitlab-ci-validate": "./src/bin"
