@@ -8,23 +8,32 @@
   },
   "scripts": {
     "lint": "eslint src",
-    "test": "npm run lint"
+    "prettier": "prettier --write \"src/*\" \"README.md\"",
+    "test": "npm run lint",
+    "precommit": "lint-staged"
   },
-  "keywords": [
-    "gitlab",
-    "ci",
-    "gitlab-ci",
-    "validate"
-  ],
+  "lint-staged": {
+    "*.{js,json,css,md}": ["prettier --write", "git add"]
+  },
+  "keywords": ["gitlab", "ci", "gitlab-ci", "validate"],
   "repository": "https://github.com/pradel/gitlab-ci-validate.git",
   "author": "Pradel Léo <pradel.leo@gmail.com>",
   "license": "MIT",
+  "prettier": {
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
   "devDependencies": {
     "eslint": "^4.13.0",
     "eslint-config-airbnb": "^16.1.0",
+    "eslint-config-prettier": "^2.9.0",
     "eslint-plugin-import": "^2.8.0",
     "eslint-plugin-jsx-a11y": "^6.0.2",
-    "eslint-plugin-react": "^7.5.1"
+    "eslint-plugin-prettier": "^2.3.1",
+    "eslint-plugin-react": "^7.5.1",
+    "husky": "^0.14.3",
+    "lint-staged": "^6.0.0",
+    "prettier": "^1.9.1"
   },
   "dependencies": {
     "chalk": "^2.3.0",

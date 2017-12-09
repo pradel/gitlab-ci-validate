@@ -10,12 +10,14 @@ Thanks to [@FGRibreau](https://github.com/FGRibreau) for the post about [validat
 ![](assets/example.gif)
 
 ### Install:
+
 ```
 yarn global add gitlab-ci-validate
 npm i -g gitlab-ci-validate
 ```
 
 ### Usage:
+
 ```
 # It will try to find if .gitlab-ci.yml is present on the current folder if no file path is provided
 $ gitlab-ci-validate <file-path>
