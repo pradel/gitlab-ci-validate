@@ -1,6 +1,7 @@
 {
   "name": "gitlab-ci-validate",
   "version": "0.1.1",
+  "description": "Checks if your .gitlab-ci.yml file is valid.",
   "main": "src/index.js",
   "bin": {
     "gitlab-ci-validate": "./src/bin"
@@ -19,14 +20,14 @@
   "author": "Pradel Léo <pradel.leo@gmail.com>",
   "license": "MIT",
   "devDependencies": {
-    "eslint": "^3.19.0",
-    "eslint-config-airbnb": "^14.1.0",
-    "eslint-plugin-import": "^2.2.0",
-    "eslint-plugin-jsx-a11y": "^4.0.0",
-    "eslint-plugin-react": "^6.10.3"
+    "eslint": "^4.13.0",
+    "eslint-config-airbnb": "^16.1.0",
+    "eslint-plugin-import": "^2.8.0",
+    "eslint-plugin-jsx-a11y": "^6.0.2",
+    "eslint-plugin-react": "^7.5.1"
   },
   "dependencies": {
-    "chalk": "^1.1.3",
-    "node-fetch": "2.0.0-alpha.9"
+    "chalk": "^2.3.0",
+    "node-fetch": "^2.0.0-alpha.9"
   }
 }
