@@ -13,9 +13,20 @@
     "precommit": "lint-staged"
   },
   "lint-staged": {
-    "*.{js,json,css,md}": ["prettier --write", "git add"]
+    "*.{js,json,css,md}": [
+      "prettier --write",
+      "git add"
+    ]
   },
-  "keywords": ["gitlab", "ci", "gitlab-ci", "validate"],
+  "files": [
+    "src"
+  ],
+  "keywords": [
+    "gitlab",
+    "ci",
+    "gitlab-ci",
+    "validate"
+  ],
   "repository": "https://github.com/pradel/gitlab-ci-validate.git",
   "author": "Pradel Léo <pradel.leo@gmail.com>",
   "license": "MIT",
@@ -24,19 +35,20 @@
     "trailingComma": "es5"
   },
   "devDependencies": {
-    "eslint": "^4.13.0",
-    "eslint-config-airbnb": "^16.1.0",
-    "eslint-config-prettier": "^2.9.0",
-    "eslint-plugin-import": "^2.8.0",
-    "eslint-plugin-jsx-a11y": "^6.0.2",
-    "eslint-plugin-prettier": "^2.3.1",
-    "eslint-plugin-react": "^7.5.1",
-    "husky": "^0.14.3",
-    "lint-staged": "^6.0.0",
-    "prettier": "^1.9.1"
+    "eslint": "^5.16.0",
+    "eslint-config-airbnb": "^17.1.0",
+    "eslint-config-prettier": "^4.3.0",
+    "eslint-plugin-import": "^2.17.3",
+    "eslint-plugin-jsx-a11y": "^6.2.1",
+    "eslint-plugin-prettier": "^3.1.0",
+    "eslint-plugin-react": "^7.13.0",
+    "husky": "^2.3.0",
+    "lint-staged": "^8.1.7",
+    "prettier": "^1.17.1"
   },
   "dependencies": {
-    "chalk": "^2.3.0",
-    "node-fetch": "^2.0.0-alpha.9"
+    "kleur": "^3.0.3",
+    "node-fetch": "^2.6.0",
+    "sade": "^1.4.2"
   }
 }
