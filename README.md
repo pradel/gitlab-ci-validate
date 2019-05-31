@@ -21,6 +21,9 @@ npm i -g gitlab-ci-validate
 ```
 # It will try to find if .gitlab-ci.yml is present on the current folder if no file path is provided
 $ gitlab-ci-validate <file-path>
+
+# You can specify your own gitlab host if you need
+$ gitlab-ci-validate <file-path> --host https://my-gitlab-url
 ```
 
 ## License
