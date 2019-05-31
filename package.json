@@ -38,6 +38,6 @@
   },
   "dependencies": {
     "kleur": "^3.0.3",
-    "node-fetch": "^2.0.0-alpha.9"
+    "node-fetch": "^2.6.0"
   }
 }
