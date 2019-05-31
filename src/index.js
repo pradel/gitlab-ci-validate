@@ -5,10 +5,13 @@ if (!process.browser) {
   global.fetch = require('node-fetch');
 }
 
-module.exports = function gitlabCiValidate(filePath) {
+module.exports = function gitlabCiValidate(filePath, options = {}) {
+  if (!options.host) {
+    options.host = 'https://gitlab.com';
+  }
   const file = fs.readFileSync(filePath, 'utf8');
   // eslint-disable-next-line no-undef
-  return fetch('https://gitlab.com/api/v4/ci/lint', {
+  return fetch(`${options.host}/api/v4/ci/lint`, {
     method: 'POST',
     json: true,
     headers: { 'Content-Type': 'application/json' },

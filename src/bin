@@ -1,48 +1,51 @@
 #!/usr/bin/env node
 const fs = require('fs');
+const sade = require('sade');
 const kleur = require('kleur');
+const gitlabCiPkg = require('../package.json');
 const gitlabCiValidate = require('../src/index');
 
-function showHelp() {
-  console.log(`
-  Usage
-    $ gitlab-ci-validate <file-path>
-  Help
-    $ gitlab-ci-validate -h --help
-  `);
-  process.exit(0);
-}
+const prog = sade(gitlabCiPkg.name);
 
-let cmd = process.argv[2];
+prog.version(gitlabCiPkg.version);
 
-// Default file is .gitlab-ci.yml
-if (!cmd) {
-  cmd = '.gitlab-ci.yml';
-}
+prog
+  .command('validate [file]', '', { default: true })
+  .describe('Manage set of tracked repositories')
+  .option(
+    '--host, -H',
+    'Change the gitlab host (default to https://gitlab.com)'
+  )
+  .action((file, opts) => {
+    // Default file is .gitlab-ci.yml
+    if (!file) {
+      file = '.gitlab-ci.yml';
+    }
 
-if (cmd === '-h' || cmd === '--help') {
-  showHelp();
-}
-
-if (!fs.existsSync(cmd)) {
-  console.log(chalk.red(`ERROR: ${cmd} does not exists!`));
-  showHelp();
-}
-
-gitlabCiValidate(cmd)
-  .then(data => {
-    if (data.status === 'valid') {
-      console.log(kleur.green(`${cmd} is valid`));
-      process.exit(0);
-    } else {
-      console.log(kleur.red(`${cmd} is invalid:`));
-      data.errors.forEach(err => {
-        console.log(kleur.red(`  - ${err}`));
-      });
+    if (!fs.existsSync(file)) {
+      console.log(kleur.red(`ERROR: ${file} does not exists!`));
       process.exit(1);
     }
-  })
-  .catch(err => {
-    console.error(kleur.red(err));
-    process.exit(1);
+
+    gitlabCiValidate(file, {
+      host: opts.host,
+    })
+      .then(data => {
+        if (data.status === 'valid') {
+          console.log(kleur.green(`${file} is valid`));
+          process.exit(0);
+        } else {
+          console.log(kleur.red(`${file} is invalid:`));
+          data.errors.forEach(err => {
+            console.log(kleur.red(`  - ${err}`));
+          });
+          process.exit(1);
+        }
+      })
+      .catch(err => {
+        console.error(kleur.red(err));
+        process.exit(1);
+      });
   });
+
+prog.parse(process.argv);
