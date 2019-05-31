@@ -15,6 +15,7 @@
   "lint-staged": {
     "*.{js,json,css,md}": ["prettier --write", "git add"]
   },
+  "files": ["src"],
   "keywords": ["gitlab", "ci", "gitlab-ci", "validate"],
   "repository": "https://github.com/pradel/gitlab-ci-validate.git",
   "author": "Pradel Léo <pradel.leo@gmail.com>",
@@ -36,7 +37,7 @@
     "prettier": "^1.9.1"
   },
   "dependencies": {
-    "chalk": "^2.3.0",
+    "kleur": "^3.0.3",
     "node-fetch": "^2.0.0-alpha.9"
   }
 }

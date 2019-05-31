@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 const fs = require('fs');
-const chalk = require('chalk');
+const kleur = require('kleur');
 const gitlabCiValidate = require('../src/index');
 
 function showHelp() {
@@ -32,17 +32,17 @@ if (!fs.existsSync(cmd)) {
 gitlabCiValidate(cmd)
   .then(data => {
     if (data.status === 'valid') {
-      console.log(chalk.green(`${cmd} is valid`));
+      console.log(kleur.green(`${cmd} is valid`));
       process.exit(0);
     } else {
-      console.log(chalk.red(`${cmd} is invalid:`));
+      console.log(kleur.red(`${cmd} is invalid:`));
       data.errors.forEach(err => {
-        console.log(chalk.red(`  - ${err}`));
+        console.log(kleur.red(`  - ${err}`));
       });
       process.exit(1);
     }
   })
   .catch(err => {
-    console.error(chalk.red(err));
+    console.error(kleur.red(err));
     process.exit(1);
   });
