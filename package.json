@@ -45,7 +45,10 @@
     "eslint-plugin-react": "^7.13.0",
     "husky": "^2.3.0",
     "lint-staged": "^8.1.7",
-    "prettier": "^1.17.1"
+    "prettier": "^1.17.1",
+    "@gp-technical/eslint-config-stack": "^1.0.0",
+    "@gp-technical/stack-pack-app": "^2.0.2",
+    "@gp-technical/stack-pack-standard": "^3.0.0"
   },
   "dependencies": {
     "kleur": "^3.0.3",
