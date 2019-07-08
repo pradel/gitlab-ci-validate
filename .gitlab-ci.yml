@@ -1,3 +1,140 @@
-include:
-  - project: "goodpractice/ci"
-    file: "/node-lib.yml"
+image: registry.gitlab.com/goodpractice/devops-tools:latest
+stages:
+  - build
+  - test
+  - qa
+  - release
+  - publish
+  - update
+  - slack
+before_script:
+  - echo //registry.npmjs.org/:_authToken=$NPM_TOKEN > .npmrc
+after_script:
+  - echo ${CI_JOB_STAGE}:${CI_JOB_NAME} > LAST_JOB
+build:
+  stage: build
+  script:
+    - yarn
+    - yarn build
+  artifacts:
+    paths:
+      - LAST_JOB
+    when: on_failure
+test:node:lts:
+  stage: test
+  image: node:lts
+  script:
+    - yarn
+    - yarn build
+    - yarn test
+  artifacts:
+    paths:
+      - LAST_JOB
+    when: on_failure
+test:node:latest:
+  stage: test
+  image: node:latest
+  script:
+    - yarn
+    - yarn build
+    - yarn test
+  artifacts:
+    paths:
+      - LAST_JOB
+    when: on_failure
+test:node:default:
+  stage: test
+  image: node:$NODE_VERSION
+  script:
+    - yarn
+    - yarn build
+    - yarn test
+  artifacts:
+    paths:
+      - LAST_JOB
+    when: on_failure
+audit:
+  stage: qa
+  script:
+    - npm install
+    - npm ci
+    - npm audit --json | npx gitlab-npm-audit-parser -o gl-dependency-scanning-report.json
+  artifacts:
+    paths:
+      - gl-dependency-scanning-report.json
+  allow_failure: true
+lint:
+  stage: qa
+  image: node:latest
+  script:
+    - yarn
+    - yarn lint
+  allow_failure: true
+sonarqube:
+  stage: qa
+  image: registry.gitlab.com/goodpractice/sonar-scanner
+  script:
+    - apk add --update git
+    - git fetch origin
+    - sonar-scanner -X -Dsonar.host.url=$SONAR_URL -Dsonar.projectKey=$SONAR_PROJECT_PREFIX$CI_PROJECT_NAME -Dsonar.sources=. -Dsonar.organization=$SONAR_ORGANIZATION -Dsonar.login=$SONAR_LOGIN -Dsonar.branch.name=$CI_COMMIT_REF_NAME
+  allow_failure: true
+release:beta:
+  stage: release
+  script:
+    - CURRENT_VERSION=`cat package.json | jq -r '.version'`
+    - echo ${CURRENT_VERSION%.*}.$CI_PIPELINE_ID-beta > VERSION
+  artifacts:
+    paths:
+      - VERSION
+      - LAST_JOB
+  only:
+    - /^feature\/*/
+    - /^hotfix\/*/
+release:rc:
+  stage: release
+  script:
+    - CURRENT_VERSION=`cat package.json | jq -r '.version'`
+    - echo ${CURRENT_VERSION%.*}.$CI_PIPELINE_ID-rc > VERSION
+  artifacts:
+    paths:
+      - VERSION
+      - LAST_JOB
+  only:
+    - /^release\/*/
+release:
+  stage: release
+  script:
+    - CURRENT_VERSION=`cat package.json | jq -r '.version'`
+    - echo ${CURRENT_VERSION%.*}.$CI_PIPELINE_ID > VERSION
+  artifacts:
+    paths:
+      - VERSION
+      - LAST_JOB
+  only:
+    - master
+    - tags
+publish:
+  stage: publish
+  script:
+    - export NEW_VERSION=`cat VERSION`
+    - echo $NEW_VERSION
+    - git config --global user.email "ci@goodpractice.com"
+    - git config --global user.name "GoodPractice CI"
+    - yarn
+    - yarn publish --new-version $NEW_VERSION
+    # - git push origin v$NEW_VERSION
+    # - git remote add github git@github.com:gp-technical/$CI_PROJECT_NAME.git
+    # - git push github v$NEW_VERSION
+  environment:
+    name: npmjs.com
+    url: https://npmjs.com/gp-technical/$CI_PROJECT_NAME
+success:
+  stage: slack
+  script:
+    - gp slack:success
+error:
+  stage: slack
+  script:
+    - cat LAST_JOB
+    - gp slack:error
+  when: on_failure
