@@ -16,6 +16,10 @@ prog
     '--host, -H',
     'Change the gitlab host (default to https://gitlab.com)'
   )
+  .option(
+    '--private_token, -P',
+    'Authenticate to gitlab api using a private token'
+  )
   .action((file, opts) => {
     // Default file is .gitlab-ci.yml
     if (!file) {
@@ -29,11 +33,16 @@ prog
 
     gitlabCiValidate(file, {
       host: opts.host,
+      private_token: opts.private_token,
     })
       .then(data => {
         if (data.status === 'valid') {
           console.log(kleur.green(`${file} is valid`));
           process.exit(0);
+        } else if (data.error){
+          console.log(kleur.red(`${data.error} - ${data.error_description}`));
+        } else if (data.message){
+          console.log(kleur.yellow(`${data.message}`));
         } else {
           console.log(kleur.red(`${file} is invalid:`));
           data.errors.forEach(err => {
