@@ -41,8 +41,10 @@ prog
           process.exit(0);
         } else if (data.error){
           console.log(kleur.red(`${data.error} - ${data.error_description}`));
+          process.exit(1);
         } else if (data.message){
           console.log(kleur.yellow(`${data.message}`));
+          process.exit(1);
         } else {
           console.log(kleur.red(`${file} is invalid:`));
           data.errors.forEach(err => {
