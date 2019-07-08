@@ -1,5 +1,5 @@
 {
-  "name": "gitlab-ci-validate",
+  "name": "@gp-technical/gitlab-ci-validate",
   "version": "0.2.0",
   "description": "Checks if your .gitlab-ci.yml file is valid.",
   "main": "src/index.js",
@@ -13,12 +13,6 @@
     "test": "npm run lint",
     "precommit": "lint-staged"
   },
-  "lint-staged": {
-    "*.{js,json,css,md}": [
-      "prettier --write",
-      "git add"
-    ]
-  },
   "files": [
     "src"
   ],
@@ -28,7 +22,10 @@
     "gitlab-ci",
     "validate"
   ],
-  "repository": "https://github.com/pradel/gitlab-ci-validate.git",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/gp-technical/gitlab-ci-validate"
+  },
   "author": "Pradel Léo <pradel.leo@gmail.com>",
   "license": "MIT",
   "prettier": {
