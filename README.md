@@ -24,6 +24,9 @@ $ gitlab-ci-validate <file-path>
 
 # You can specify your own gitlab host if you need
 $ gitlab-ci-validate <file-path> --host https://my-gitlab-url
+
+# You can provide a private token if you need
+$ gitlab-ci-validate <file-path> --private-token <my-gitlab-token>
 ```
 
 ## License
