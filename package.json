@@ -1,6 +1,6 @@
 {
   "name": "gitlab-ci-validate",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Checks if your .gitlab-ci.yml file is valid.",
   "main": "src/index.js",
   "bin": {
