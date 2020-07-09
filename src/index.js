@@ -22,5 +22,5 @@ module.exports = function gitlabCiValidate(filePath, options = {}) {
     body: JSON.stringify({
       content: file,
     }),
-  }).then(res => res.json());
+  }).then((res) => res.json());
 };
