@@ -28,5 +28,5 @@ jobs:
             ${{ runner.os }}-yarn-
       - name: yarn install, build, and test
         run: |
-          yarn install --frozen-lockfile
+          yarn install --immutable
           yarn test
