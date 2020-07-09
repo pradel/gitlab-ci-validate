@@ -3,9 +3,7 @@
   "version": "0.3.0",
   "description": "Checks if your .gitlab-ci.yml file is valid.",
   "main": "src/index.js",
-  "bin": {
-    "gitlab-ci-validate": "./src/bin"
-  },
+  "bin": "./src/bin",
   "scripts": {
     "lint": "eslint src",
     "prettier": "prettier --write \"src/*\" \"README.md\"",
