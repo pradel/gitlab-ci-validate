@@ -7,7 +7,7 @@ if (!process.browser) {
 
 module.exports = function gitlabCiValidate(filePath, options = {}) {
   if (!options.host) {
-    options.host = 'https://gitlab.comq';
+    options.host = 'https://gitlab.com';
   }
   const file = fs.readFileSync(filePath, 'utf8');
   const headers = { 'Content-Type': 'application/json' };
