@@ -35,7 +35,7 @@ prog
       host: opts.host,
       private_token: opts.private_token,
     })
-      .then(data => {
+      .then((data) => {
         if (data.status === 'valid') {
           console.log(kleur.green(`${file} is valid`));
           process.exit(0);
@@ -47,13 +47,13 @@ prog
           process.exit(1);
         } else {
           console.log(kleur.red(`${file} is invalid:`));
-          data.errors.forEach(err => {
+          data.errors.forEach((err) => {
             console.log(kleur.red(`  - ${err}`));
           });
           process.exit(1);
         }
       })
-      .catch(err => {
+      .catch((err) => {
         console.error(kleur.red(err));
         process.exit(1);
       });
