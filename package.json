@@ -47,7 +47,7 @@
   },
   "dependencies": {
     "kleur": "4.0.2",
-    "node-fetch": "2.6.0",
+    "node-fetch": "2.6.1",
     "sade": "1.7.3"
   }
 }
