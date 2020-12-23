@@ -20,6 +20,12 @@ prog
     '--private-token, -P',
     'Authenticate to gitlab api using a private token'
   )
+  .option(
+    '--project-id, -p',
+    'Toggle individual project scoped execution, specify the project id context'
+  )
+  .option('--error-warn, -w', 'Toggle warnings as an error condition')
+
   .action((file, opts) => {
     // Default file is .gitlab-ci.yml
     if (!file) {
@@ -27,18 +33,25 @@ prog
     }
 
     if (!fs.existsSync(file)) {
-      console.log(kleur.red(`ERROR: ${file} does not exists!`));
+      console.log(kleur.red(`${file} does not exists!`));
       process.exit(1);
     }
-
     gitlabCiValidate(file, {
       host: opts.host,
-      private_token: opts.private_token,
+      private_token: opts['private-token'],
+      project_id: opts['project-id'],
     })
       .then((data) => {
-        if (data.status === 'valid') {
+        if (data.valid || data.status === 'valid') {
           console.log(kleur.green(`${file} is valid`));
-          process.exit(0);
+          data.warnings.forEach((warn) => {
+            console.log(kleur.yellow(`${warn}`));
+          });
+          if (data.warnings.length && opts['error-warn']) {
+            process.exit(1);
+          } else {
+            process.exit(0);
+          }
         } else if (data.error) {
           console.log(kleur.red(`${data.error} - ${data.error_description}`));
           process.exit(1);
@@ -48,7 +61,10 @@ prog
         } else {
           console.log(kleur.red(`${file} is invalid:`));
           data.errors.forEach((err) => {
-            console.log(kleur.red(`  - ${err}`));
+            console.log(kleur.red(`${err}`));
+          });
+          data.warnings.forEach((warn) => {
+            console.log(kleur.yellow(`${warn}`));
           });
           process.exit(1);
         }
