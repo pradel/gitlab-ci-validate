@@ -14,8 +14,12 @@ module.exports = function gitlabCiValidate(filePath, options = {}) {
   if (options.private_token) {
     headers['Private-Token'] = options.private_token;
   }
+  let uri = `${options.host}/api/v4/ci/lint`;
+  if (options.project_id) {
+    uri = `${options.host}/api/v4/projects/${options.project_id}/ci/lint`;
+  }
   // eslint-disable-next-line no-undef
-  return fetch(`${options.host}/api/v4/ci/lint`, {
+  return fetch(uri, {
     method: 'POST',
     json: true,
     headers,
