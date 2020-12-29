@@ -45,7 +45,7 @@ prog
         if (data.valid || data.status === 'valid') {
           console.log(kleur.green(`${file} is valid`));
           data.warnings.forEach((warn) => {
-            console.log(kleur.yellow(`${warn}`));
+            console.log(kleur.yellow(`  - ${warn}`));
           });
           if (data.warnings.length && opts['error-warn']) {
             process.exit(1);
@@ -61,10 +61,10 @@ prog
         } else {
           console.log(kleur.red(`${file} is invalid:`));
           data.errors.forEach((err) => {
-            console.log(kleur.red(`${err}`));
+            console.log(kleur.red(`  - ${err}`));
           });
           data.warnings.forEach((warn) => {
-            console.log(kleur.yellow(`${warn}`));
+            console.log(kleur.yellow(`  - ${warn}`));
           });
           process.exit(1);
         }

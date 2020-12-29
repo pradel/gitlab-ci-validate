@@ -5,6 +5,7 @@
   "main": "src/index.js",
   "bin": "./src/bin",
   "scripts": {
+    "dev": "./src/bin",
     "lint": "eslint src",
     "prettier": "prettier --write \"src/*\" \"README.md\"",
     "test": "npm run lint",

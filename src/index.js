@@ -6,7 +6,6 @@ if (!process.browser) {
 }
 
 module.exports = function gitlabCiValidate(filePath, options = {}) {
-  let uri;
   if (!options.host) {
     options.host = 'https://gitlab.com';
   }
@@ -15,12 +14,10 @@ module.exports = function gitlabCiValidate(filePath, options = {}) {
   if (options.private_token) {
     headers['Private-Token'] = options.private_token;
   }
+  let uri = `${options.host}/api/v4/ci/lint`;
   if (options.project_id) {
     uri = `${options.host}/api/v4/projects/${options.project_id}/ci/lint`;
-  } else {
-    uri = `${options.host}/api/v4/ci/lint`;
   }
-  console.log(uri);
   // eslint-disable-next-line no-undef
   return fetch(uri, {
     method: 'POST',
